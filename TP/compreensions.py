@@ -1,8 +1,5 @@
 
 # Q1 et Q2
-from this import d
-
-
 def contents(nom_fichier):
 
     with open(nom_fichier, mode = 'rb') as f:
@@ -250,12 +247,20 @@ class Huffman:
         pass
 
     def encode(self, tab):
+        res = []
         codet = []
         for k in tab:
             codet.append(self.codes[k])
 
-        return codet
+        codet = sum(codet, [])
+        codet = "".join(map(str, codet))
 
+        for k in range(len(codet)):
+            if k % 8 == 0 and k != 0:
+                res.append(int(codet[k-8:k], 2))
+        return res
+
+    #TODO: Arrumar decode
     def decode(self, coded):
         text = []
         for j in coded:
@@ -269,7 +274,7 @@ Huf = Huffman()
 Huf.build_tree(tab)
 Huf.build_codemap()
 Huf.encode(tab)
-Huf.decode(Huf.encode(tab))
+#Huf.decode(Huf.encode(tab))
 
-print(Huf.decode(Huf.encode(tab)))
+print(Huf.codes)
 Huf.tree.display()
