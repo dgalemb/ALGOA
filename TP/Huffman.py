@@ -268,13 +268,23 @@ class Huffman:
         return [k[0] for k in text]
 
 
-tab = contents(r'TP/teste.txt')
+def main(nom_fichier):
 
-Huf = Huffman()
-Huf.build_tree(tab)
-Huf.build_codemap()
-Huf.encode(tab)
-#Huf.decode(Huf.encode(tab))
+    tab = contents(nom_fichier)
+    with open(nom_fichier) as f: 
+        text = f.read()
 
-print(Huf.codes)
-Huf.tree.display()
+    Huf = Huffman()
+    Huf.build_tree(tab)
+    Huf.build_codemap()
+    encoded = Huf.encode(tab)
+    #Huf.decode(Huf.encode(tab))
+
+    print(Huf.codes)
+
+    print(f'First 100 chars of the original message: {text[:min(100, len(text))]}\nFirst 100 ints of its binary representation: {tab[:min(100, len(tab))]}/nL arbre correspondant:')
+    Huf.tree.display()
+    print(f'The corresponding codemap: {Huf.codes}\nThe coded message: {encoded}')
+
+
+main(r'TP/teste.txt')

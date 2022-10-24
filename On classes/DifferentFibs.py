@@ -26,5 +26,5 @@ def rec_fib(n):
     else:
         return rec_fib(n-1) + rec_fib(n-2)
 
-for k in range(500):
+for k in range(5):
     print(top_down_fib(k, [0 for x in range(k+1)]))
