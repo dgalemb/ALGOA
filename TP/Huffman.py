@@ -267,6 +267,35 @@ class Huffman:
             text.append([k for k, v in self.codes.items() if v == j])
         return [k[0] for k in text]
 
+    #Q33
+    #TODO: Arrumar
+    def canonical_diffs(self):
+        self.codes = sorted(self.codes.items(), key=lambda x: len(x[1]))
+        ans = self.codes[:]
+        ans[0] = (ans[0][0], [0] * len(ans[0][1]))
+        ans[1] = (ans[1][0], [0, 1, 0])
+        for k in range(2, len(ans)):
+            ans[k] = (ans[k][0], 
+                    [j for j in str(
+                    format(
+                        int(
+                            bin((1 + 
+                                int(
+                                    ''.join
+                                    (map(str, ans[k-1][1]))
+                                    , 2)
+                                    ) << (len(self.codes[k][1]) - len(ans[k][1]))), 2),
+                    f'#0{len(self.codes[k][1])+2}b'
+                    )
+                    )
+                    ][2:]
+            )
+
+        return ans
+
+#Q34
+def binary_list(n):    
+    return list(map(int,[k for k in bin(n)][2:]))
 
 def main(nom_fichier):
 
@@ -278,13 +307,14 @@ def main(nom_fichier):
     Huf.build_tree(tab)
     Huf.build_codemap()
     encoded = Huf.encode(tab)
+    canon = Huf.canonical_diffs()
     #Huf.decode(Huf.encode(tab))
 
     print(Huf.codes)
 
-    print(f'First 100 chars of the original message: {text[:min(100, len(text))]}\nFirst 100 ints of its binary representation: {tab[:min(100, len(tab))]}/nL arbre correspondant:')
+    print(f'First 100 chars of the original message: {text[:min(100, len(text))]}\nFirst 100 ints of its binary representation: {tab[:min(100, len(tab))]}\nL arbre correspondant:')
     Huf.tree.display()
-    print(f'The corresponding codemap: {Huf.codes}\nThe coded message: {encoded}')
+    print(f'The corresponding codemap: {Huf.codes}\nThe coded message: {encoded}\nThe canonical code: {canon}')
 
 
 main(r'TP/teste.txt')
