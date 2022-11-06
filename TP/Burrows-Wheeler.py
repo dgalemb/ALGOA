@@ -1,3 +1,6 @@
+# Il manque tout
+# Everything needs to be done
+
 def swap(A, i, j):
     A[i], A[j] = A[j], A[i]
     return A

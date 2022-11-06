@@ -1,3 +1,5 @@
+# Il manque refaire la decodage, codage canonique
+# Redo the decoding function and do Huffman canonical coding
 
 # Q1 et Q2
 def contents(nom_fichier):
