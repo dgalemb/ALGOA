@@ -30,7 +30,7 @@ def queen(L, i, n):
                 L2.append((i, j))
                 queen(L2, i + 1, n)
 
-n = 20
+n = 4
 L = []
 queen(L, 0, n)
 
